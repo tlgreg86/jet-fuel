@@ -75,6 +75,10 @@ h2 {
   cursor: pointer;
 }
 
+.submit-folder:hover {
+  background-color: #fc552b;
+}
+
 .dropbtn {
   background-color: #297cc4;
   outline: none;
@@ -116,8 +120,11 @@ h2 {
 .submit-url {
   width: 550px;
   height: 40px;
+  background-color: #297cc4;
+  color: white;
+  font-size: 16px;
 }
 
-.submit-button:hover {
+.submit-url:hover {
   background-color: #fc552b;
 }
