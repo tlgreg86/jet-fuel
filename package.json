@@ -1,0 +1,24 @@
+{
+  "name": "jet-fuel",
+  "version": "1.0.0",
+  "description": "Jet Fuel Url shortener",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlgreg86/jet-fuel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlgreg86/jet-fuel/issues"
+  },
+  "homepage": "https://github.com/tlgreg86/jet-fuel#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
