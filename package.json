@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/tlgreg86/jet-fuel#readme",
   "dependencies": {
-    "express": "^4.15.4"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "knex": "^0.13.0",
+    "pg": "^7.1.2"
   }
 }
