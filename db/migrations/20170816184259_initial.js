@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('folders', function(table) {
       table.increments('id').primary();
-      table.string('folder_name');
+      table.string('folder_name').unique();
       table.timestamps(true, true);
     }),
 

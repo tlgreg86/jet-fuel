@@ -18,22 +18,22 @@ describe('Client routes', () => {
   })
 });
 
-describe('API Routes', () => {
-  beforeEach((done) => {
-    knex.migrate.rollback()
-    .then(() => knex.migrate.latest())
-    .then(() => knex.seed.run())
-    .then(() => done());
-  })
-
-  describe('GET /api/v1/folders gets all folders', () => {
-    it('should return an array of folders', (done) => {
-      chai.request(server)
-      .get('/api/v1/folders')
-      .end(error, response) => {
-        response.should.have.status(200);
-        done();
-      }
-    })
-  })
-})
+// describe('API Routes', () => {
+//   beforeEach((done) => {
+//     knex.migrate.rollback()
+//     .then(() => knex.migrate.latest())
+//     .then(() => knex.seed.run())
+//     .then(() => done());
+//   })
+//
+//   describe('GET /api/v1/folders gets all folders', () => {
+//     it('should return an array of folders', (done) => {
+//       chai.request(server)
+//       .get('/api/v1/folders')
+//       .end(error, response) => {
+//         response.should.have.status(200);
+//         done();
+//       }
+//     })
+//   })
+// })

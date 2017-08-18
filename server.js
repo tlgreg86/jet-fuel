@@ -45,9 +45,9 @@ app.post('/api/v1/folders', (request, response) => {
       })
 
       if (!findFolder) {
-        database('folders').insert({ folder_name: newFolder.folder_name }, 'id')
+        database('folders').insert({ folder_name: newFolder.folder_name }, '*')
         .then(folders => {
-          response.status(201).json(folders)
+          response.status(201).json({folders})
         })
         .catch(error => {
           response.status(500).json({
