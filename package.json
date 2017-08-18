@@ -1,6 +1,9 @@
 {
   "name": "jet-fuel",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.9.5"
+  },
   "description": "Jet Fuel Url shortener",
   "main": "scripts.js",
   "scripts": {
