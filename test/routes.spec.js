@@ -23,7 +23,7 @@ describe('API Routes', () => {
     .then(() => knex.migrate.latest())
     .then(() => knex.seed.run())
     .then(() => done());
-    .catch(error => console.log(error);)
+    .catch(error => console.log(error))
   })
 
   describe('GET /api/v1/folders gets all folders', () => {
