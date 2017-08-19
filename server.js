@@ -31,42 +31,25 @@ app.post('/api/v1/folders', (request, response) => {
 
   for (let requiredParameter of ['folder_name']) {
     if (!newFolder[requiredParameter]) {
-      return response.status(422).json({
-        error: `Missing required parameter ${requiredParameter}`
-      });
+      return response.status(422).json(
+        `Missing required parameter ${requiredParameter}`
+      );
     }
   }
-
-  database('folders').select()
-    .then(folders => {
-
-      let findFolder = folders.find(folder => {
-        return folder.folder_name === newFolder.folder_name;
-      })
-
-      if (!findFolder) {
-        database('folders').insert({ folder_name: newFolder.folder_name }, '*')
-        .then(folders => {
-          response.status(201).json({folders})
-        })
-        .catch(error => {
-          response.status(500).json({
-            'error': '500: There was an internal error creating a new folder. Please try again.'
-          })
-        })
-      }
+  database('folders')
+    .insert(newFolder, '*')
+    .then(folder => {
+      response.status(201).json(folder)
     })
     .catch(error => {
-      response.status(500).json({
-        'error': '500: There was an internal error creating a new folder. Please try again.'
-      })
+      response.status(500).json({error})
     })
-})
+  })
 
-app.get('/api/v1/folders/:id', (request, response) => {
+app.get('/api/v1/links', (request, response) => {
   database('folders').select()
-    .then(folders => {
-      response.status(200).json(folders);
+    .then(folder => {
+      response.status(200).json(folder);
     })
     .catch(error => {
       response.status(500).json({ error })
