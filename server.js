@@ -19,10 +19,10 @@ app.locals.title = 'Jet Fuel';
 
 app.get('/api/v1/folders', (request, response) => {
   database('folders').select()
-    .then(folders => {
+    .then((folders) => {
       response.status(200).json(folders);
     })
-    .catch(error => {
+    .catch((error) => {
       response.status(500).json({ error });
     });
 });
@@ -34,30 +34,30 @@ app.post('/api/v1/folders', (request, response) => {
     if (!newFolder[requiredParameter]) {
       return response.status(422).json(
         `Missing required parameter ${requiredParameter}`
-      );
+      )
     }
   }
   database('folders')
     .insert(newFolder, '*')
-    .then(folder => {
-      response.status(201).json(folder[0])
+    .then((folder) => {
+      response.status(201).json(folder[0]);
     })
-    .catch(error => {
-      response.status(500).json({error})
-    })
-  })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
+});
 
 app.get('/api/v1/folders/:id/urls', (request, response) => {
   database('urls')
     .where('folder_id', request.params.id)
     .select()
-      .then(urls => {
-        response.status(200).json(urls)
-      })
-      .catch(error => {
-        response.status(500).json({error})
-      })
-})
+    .then((urls) => {
+      response.status(200).json(urls);
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
+});
 
 app.post('/api/v1/folders/:id/urls', (request, response) => {
   const newUrl = request.body;
@@ -71,35 +71,35 @@ app.post('/api/v1/folders/:id/urls', (request, response) => {
   }
 
   newUrl.short_url = `jetfuel.com/${shortHash(newUrl.long_url)}`;
-  newUrl.folder_id = request.params.id
+  newUrl.folder_id = request.params.id;
 
   database('folders').select()
-    .then(folder => {
+    .then((folder) => {
       database('urls').insert(newUrl, '*')
-        .then(url => {
-          response.status(201).json(url[0])
+        .then((url) => {
+          response.status(201).json(url[0]);
         })
-        .catch(error => {
-          response.status(500).json({error})
-        })
-    })
-})
+        .catch((error) => {
+          response.status(500).json({ error });
+        });
+    });
+});
 
 app.route('/api/v1/urls/:id')
-.get((request, response) => {
-  database('urls')
-    .select()
-    .where('id', request.params.id)
-    .then(url => {
-      response.status(302).redirect(url[0].long_url)
-    })
-    .catch(error => {
-      response.status(500).json({error})
-    })
-})
+  .get((request, response) => {
+    database('urls')
+      .select()
+      .where('id', request.params.id)
+      .then((url) => {
+        response.status(302).redirect(url[0].long_url);
+      })
+      .catch((error) => {
+        response.status(500).json({ error });
+      });
+  });
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`)
+  console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`);
 });
 
 module.exports = app;
