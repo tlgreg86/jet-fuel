@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const shortHash = require('short-hash');
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.get('/api/v1/folders', (request, response) => {
 app.post('/api/v1/folders', (request, response) => {
   const newFolder = request.body;
 
-  for (let requiredParameter of ['folder_name']) {
+  for (const requiredParameter of ['folder_name']) {
     if (!newFolder[requiredParameter]) {
       return response.status(422).json(
         `Missing required parameter ${requiredParameter}`
@@ -39,22 +40,63 @@ app.post('/api/v1/folders', (request, response) => {
   database('folders')
     .insert(newFolder, '*')
     .then(folder => {
-      response.status(201).json(folder)
+      response.status(201).json(folder[0])
     })
     .catch(error => {
       response.status(500).json({error})
     })
   })
 
-app.get('/api/v1/links', (request, response) => {
+app.get('/api/v1/folders/:id/urls', (request, response) => {
+  database('urls')
+    .where('folder_id', request.params.id)
+    .select()
+      .then(urls => {
+        response.status(200).json(urls)
+      })
+      .catch(error => {
+        response.status(500).json({error})
+      })
+})
+
+app.post('/api/v1/folders/:id/urls', (request, response) => {
+  const newUrl = request.body;
+
+  for (const requiredParameter of ['long_url', 'url_title']) {
+    if (!newUrl[requiredParameter]) {
+      return response.status(422).json(
+        `Missing required parameter ${requiredParameter}`
+      )
+    }
+  }
+
+  newUrl.short_url = `jetfuel.com/${shortHash(newUrl.long_url)}`;
+  newUrl.folder_id = request.params.id
+
   database('folders').select()
     .then(folder => {
-      response.status(200).json(folder);
+      database('urls').insert(newUrl, '*')
+        .then(url => {
+          response.status(201).json(url[0])
+        })
+        .catch(error => {
+          response.status(500).json({error})
+        })
+    })
+})
+
+app.route('/api/v1/urls/:id')
+.get((request, response) => {
+  database('urls')
+    .select()
+    .where('id', request.params.id)
+    .then(url => {
+      response.status(302).redirect(url[0].long_url)
     })
     .catch(error => {
-      response.status(500).json({ error })
-    });
-});
+      response.status(500).json({error})
+    })
+})
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}.`)
