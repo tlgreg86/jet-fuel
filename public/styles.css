@@ -64,25 +64,33 @@ h2 {
   height: 40px;
   padding: 10px 10px;
   font-size: 15px;
-  margin-bottom: 20px;
 }
 
 .submit-folder {
   height: 40px;
+  width: 42px;
   margin-left: 10px;
   background-color: #297cc4;
   border-radius: 20px;
   cursor: pointer;
+  border: none;
 }
 
 .submit-folder:hover {
   background-color: #fc552b;
+  border-radius: 20px;
+}
+
+.submit-folder-icon {
+  height: 43px;
+  margin: -4px 0 0 -7px;
 }
 
 .dropbtn {
   background-color: #297cc4;
   outline: none;
   color: white;
+  margin-top: 20px;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
