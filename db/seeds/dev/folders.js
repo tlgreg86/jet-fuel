@@ -10,13 +10,13 @@ exports.seed = function(knex, Promise) {
           }, 'id')
           .then(folder => {
             return knex('urls').insert([
-              { long_url: 'http://www.abcdefghijklmnop.com',
-                short_url: 'www.a.com',
+              { long_url: 'https://en.wikipedia.org/wiki/ABCs_(song)',
+                short_url: 'https://www.abc.com',
                 folder_id: folder[0],
                 url_title: 'ABC\'s'
               },
-              { long_url: 'http://www.zebrastripes.com',
-                short_url: 'www.z.com',
+              { long_url: 'https://en.wikipedia.org/wiki/Zebra',
+                short_url: 'https://www.zebra.com',
                 folder_id: folder[0],
                 url_title: 'Zebras'
               }
