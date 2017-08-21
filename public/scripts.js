@@ -118,20 +118,26 @@ submitUrl.click((e) => {
   e.preventDefault();
   addUrl();
   clearUrlInputs();
-  console.log('triggerd AF');
 });
 
 folderName.on('keyup', () => {
   const regex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
   if (!regex.test(folderName.val()) || folderName.val() === '') {
-    $('.submit-folder').prop('disabled', true);
+    submitFolder.prop('disabled', true);
   } else {
-    $('.submit-folder').prop('disabled', false);
+    submitFolder.prop('disabled', false);
   }
 });
 
 $('input[type=text]').on('keyup', () => {
   const urlRegex = new RegExp('^(http:\/\/|https:\/\/)+[a-zA-Z0-9]*[^ ]*$');
-
-
-})
+  const spRegex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
+  if ((!urlRegex.test(longUrl.val())) || longUrl.val === '') {
+    submitUrl.prop('disabled', true);
+  } else {
+    submitUrl.prop('disabled', false);
+  }
+  if ((!spRegex.test(description.val()) || description.val() === '')) {
+    submitUrl.prop('disabled', true);
+  }
+});
