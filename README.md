@@ -6,7 +6,7 @@ This project takes user-provided long URLs and converts them to short URLs while
 
 See It Live
 
-(Jet Fuel on Heroku)[https://tg-jetfuel.herokuapp.com/]
+[Jet Fuel on Heroku](https://tg-jetfuel.herokuapp.com/)
 
 Set Up
 
@@ -24,8 +24,8 @@ Run with npm test
 
 Original Assignment
 
-(Jet Fuel from the Turing School of Software & Design)[http://frontend.turing.io/projects/jet-fuel.html]
+[Jet Fuel from the Turing School of Software & Design](http://frontend.turing.io/projects/jet-fuel.html)
 
 Contributors
 
-Travis Gregory : (GitHub Profile)[https://github.com/tlgreg86]
+Travis Gregory : [GitHub Profile](https://github.com/tlgreg86)
