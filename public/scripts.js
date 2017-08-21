@@ -1,3 +1,5 @@
+// form variables //
+
 const folderName = $('.folder-input');
 const dropDown = $('.dropbtn');
 const submitFolder = $('.submit-folder');
@@ -5,16 +7,37 @@ const description = $('.description-input');
 const longUrl = $('.url-input');
 const submitUrl = $('.submit-url');
 
+// functions //
+
 const addFolderToDom = (folder) => {
-  if (folder.id !== undefined && folder.folder_name !== ' ' ) {
+  if (folder.id !== undefined) {
     dropDown.append(
-      `<option value='${folder.id}'>${folder.id}: ${folder.folder_name}</option>`,
+      `<option class='folder' value='${folder.id}'>${folder.folder_name}</option>`,
     );
   }
 };
 
+const addUrlToDom = (url) => {
+  const date = url.created_at;
+
+  $('.header-form-wrapper').append(
+    `<section class="url-viewer">
+       <div class="url-list">
+         <h3 class="url-title">${url.url_title}</h3>
+         <a class="url-short" href="">${url.short_url}</a>
+         <p class="url-date">${date}</p>
+       </div>
+     </section>`,
+  );
+};
+
 const clearFolderInput = () => {
   folderName.val('');
+};
+
+const clearUrlInputs = () => {
+  description.val('');
+  longUrl.val('');
 };
 
 const getFolders = () => {
@@ -26,42 +49,89 @@ const getFolders = () => {
 };
 
 const addFolders = () => {
-  const folderNameInput = folderName.val();
-
   fetch('/api/v1/folders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      folder_name: folderNameInput,
+      folder_name: folderName.val(),
     }),
   })
     .then(response => response.json())
     .then((folder) => {
-      console.log(folder)
-      if (!folder.error && folder.folder_name !== ' ') {
+      if (!folder.error) {
         addFolderToDom(folder);
       }
     });
 };
 
-const folderSubmit = submitFolder.click((e) => {
+const getFolderUrls = (id) => {
+  fetch(`/api/v1/folders/${id}/urls`)
+    .then(response => response.json())
+    .then((urls) => {
+      if (!urls.length) {
+        $('.header-form-wrapper').append(
+          `<h3 class='no-urls'>Links haven't been added to this folder yet</h3>`
+        );
+      }
+      urls.map(url =>
+        addUrlToDom(url),
+      );
+    });
+};
+
+const addUrl = () => {
+  fetch(`/api/v1/folders/${dropDown.val()}/urls`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      url_title: description.val(),
+      long_url: longUrl.val(),
+    }),
+  })
+    .then(response => response.json())
+    .then((url) => {
+      addUrlToDom(url);
+    });
+};
+
+// Setup on page load //
+
+getFolders();
+
+submitFolder.click((e) => {
   e.preventDefault();
   addFolders();
   clearFolderInput();
 });
 
-// Setup section
+dropDown.change((e) => {
+  e.preventDefault();
+  console.log(dropDown.val());
+  $(getFolderUrls(dropDown.val())).replaceAll('.url-viewer');
+});
 
-getFolders();
+submitUrl.click((e) => {
+  e.preventDefault();
+  addUrl();
+  clearUrlInputs();
+  console.log('triggerd AF');
+});
 
-$('.folder-input').on('keyup', () => {
-  const $name = $('.folder-input').val();
-  const regex = new RegExp('^[a-zA-Z0-9]*$');
-  if (!regex.test($name)) {
+folderName.on('keyup', () => {
+  const regex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
+  if (!regex.test(folderName.val()) || folderName.val() === '') {
     $('.submit-folder').prop('disabled', true);
   } else {
     $('.submit-folder').prop('disabled', false);
   }
 });
+
+$('input[type=text]').on('keyup', () => {
+  const urlRegex = new RegExp('^(http:\/\/|https:\/\/)+[a-zA-Z0-9]*[^ ]*$');
+
+
+})

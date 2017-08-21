@@ -18,8 +18,8 @@
       <form class="input-form">
         <h2>1. Create a new folder or choose one</h2>
         <div class="folder-input-wrapper">
-          <input class="folder-input" type="text" placeholder="Enter name of folder here">
-          <button disabled class="submit-folder" type="button" name="submit">
+          <input class="folder-input" type="text" placeholder="Enter name of folder here (no spaces)">
+          <button disabled value="" class="submit-folder" type="button" name="submit">
             <img class="submit-folder-icon" src="./arrow-button.svg" alt="enter button">
           </button>
         </div>
@@ -28,20 +28,20 @@
 
         <div class="dropdown">
           <select class="dropbtn">
-            <option selected disabled value="Click to choose a folder">Click to choose folder</option>
+            <option selected disabled class="folder" value=null>Click to choose folder</option>
           </select>
         </div>
 
         <h2>3. Enter URL details below then submit</h2>
 
         <div class="url-wrapper">
-          <input class="description-input" placeholder="Enter url name or description here">
-          <input class="url-input" type="url" placeholder="Paste url to be shortened here">
+          <input class="description-input" type="text" placeholder="Enter url name or description here">
+          <input class="url-input" type="text" placeholder="Paste url to be shortened here">
           <button class="submit-url" type="button" name="Submit">Submit</button>
         </div>
 
+        <h2>4. Click on the links below to see their web pages</h2>
       </form>
-
     </section>
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
