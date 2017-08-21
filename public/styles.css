@@ -146,6 +146,10 @@ h2 {
   background-color: #fc552b;
 }
 
+.submit-url:disabled {
+  background-color: grey;
+}
+
 .url-viewer {
   margin-top: 20px;
   display: flex;
