@@ -6,8 +6,9 @@ html {
   height: 100%;
   width: 100%;
   background-image: url('./city-background.jpg');
+  background-color: black;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: cover;
 }
 
@@ -42,7 +43,10 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  background-color: rgba(173, 173, 173, 0.39);
+  border: 2px solid white;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 h2 {
@@ -50,7 +54,7 @@ h2 {
   font-family: 'Righteous', cursive;
   font-size: 1.5em;
   margin: 20px 0 0 0;
-  text-align: left;
+  text-align: center;
 }
 
 .folder-input-wrapper {
@@ -78,6 +82,11 @@ h2 {
 
 .submit-folder:hover {
   background-color: #fc552b;
+  border-radius: 20px;
+}
+
+.submit-folder:disabled {
+  background-color: grey;
   border-radius: 20px;
 }
 
@@ -135,4 +144,39 @@ h2 {
 
 .submit-url:hover {
   background-color: #fc552b;
+}
+
+.url-viewer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  background-color: rgba(173, 173, 173, 0.39);
+  border: 2px solid white;
+}
+
+.no-urls {
+  color: white;
+  font-family: 'Righteous', cursive;
+  font-size: 1.5em;
+  margin: 20px 0 0 0;
+  text-align: center;
+}
+
+.url-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+}
+
+.url-title,
+.url-date,
+.url-short {
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  align-self: center;
 }

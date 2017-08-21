@@ -66,11 +66,11 @@ app.post('/api/v1/folders/:id/urls', (request, response) => {
     if (!newUrl[requiredParameter]) {
       return response.status(422).json(
         `Missing required parameter ${requiredParameter}`
-      )
+      );
     }
   }
 
-  newUrl.short_url = `jetfuel.com/${shortHash(newUrl.long_url)}`;
+  newUrl.short_url = `myjetfuelapp.com/${shortHash(newUrl.long_url)}`;
   newUrl.folder_id = request.params.id;
 
   database('folders').select()
