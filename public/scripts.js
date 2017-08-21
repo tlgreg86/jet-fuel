@@ -1,4 +1,4 @@
-// form variables //
+// app constants //
 
 const folderName = $('.folder-input');
 const dropDown = $('.dropbtn');
@@ -6,6 +6,8 @@ const submitFolder = $('.submit-folder');
 const description = $('.description-input');
 const longUrl = $('.url-input');
 const submitUrl = $('.submit-url');
+
+const spRegex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
 
 // functions //
 
@@ -19,16 +21,17 @@ const addFolderToDom = (folder) => {
 
 const addUrlToDom = (url) => {
   const date = url.created_at;
-
-  $('.header-form-wrapper').append(
-    `<section class="url-viewer">
-       <div class="url-list">
-         <h3 class="url-title">${url.url_title}</h3>
-         <a class="url-short" href="">${url.short_url}</a>
-         <p class="url-date">${date}</p>
-       </div>
-     </section>`,
-  );
+  if (url.url_title !== undefined) {
+    $('.header-form-wrapper').append(
+      `<section class="url-viewer">
+         <div class="url-list">
+           <h3 class="url-title">${url.url_title}</h3>
+           <a class="url-short" href="/api/v1/urls/${url.id}">${url.short_url}</a>
+           <p class="url-date">${date}</p>
+         </div>
+       </section>`,
+    );
+  }
 };
 
 const clearFolderInput = () => {
@@ -110,19 +113,18 @@ submitFolder.click((e) => {
 
 dropDown.change((e) => {
   e.preventDefault();
-  console.log(dropDown.val());
   $(getFolderUrls(dropDown.val())).replaceAll('.url-viewer');
 });
 
 submitUrl.click((e) => {
   e.preventDefault();
+  $('.no-urls').remove();
   addUrl();
   clearUrlInputs();
 });
 
 folderName.on('keyup', () => {
-  const regex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
-  if (!regex.test(folderName.val()) || folderName.val() === '') {
+  if (!spRegex.test(folderName.val()) || folderName.val() === '') {
     submitFolder.prop('disabled', true);
   } else {
     submitFolder.prop('disabled', false);
@@ -130,8 +132,7 @@ folderName.on('keyup', () => {
 });
 
 $('input[type=text]').on('keyup', () => {
-  const urlRegex = new RegExp('^(http:\/\/|https:\/\/)+[a-zA-Z0-9]*[^ ]*$');
-  const spRegex = new RegExp('^[a-zA-Z0-9]*[^ ]*$');
+  const urlRegex = new RegExp('^(http://|https://)+[a-zA-Z0-9]*[^ ]*$');
   if ((!urlRegex.test(longUrl.val())) || longUrl.val === '') {
     submitUrl.prop('disabled', true);
   } else {
