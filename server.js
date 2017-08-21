@@ -32,9 +32,9 @@ app.post('/api/v1/folders', (request, response) => {
 
   for (const requiredParameter of ['folder_name']) {
     if (!newFolder[requiredParameter]) {
-      return response.status(422).json(
-        `Missing required parameter ${requiredParameter}`
-      )
+      return response.status(422).json({
+        error: `Missing required parameter ${requiredParameter}`
+      })
     }
   }
   database('folders')
@@ -43,7 +43,9 @@ app.post('/api/v1/folders', (request, response) => {
       response.status(201).json(folder[0]);
     })
     .catch((error) => {
-      response.status(500).json({ error });
+      response.status(409).json({
+        error: 'Folder name already exists',
+      });
     });
 });
 
@@ -64,9 +66,9 @@ app.post('/api/v1/folders/:id/urls', (request, response) => {
 
   for (const requiredParameter of ['long_url', 'url_title']) {
     if (!newUrl[requiredParameter]) {
-      return response.status(422).json(
-        `Missing required parameter ${requiredParameter}`
-      );
+      return response.status(422).json({
+        error: `Missing required parameter ${requiredParameter}`
+      })
     }
   }
 
@@ -80,7 +82,9 @@ app.post('/api/v1/folders/:id/urls', (request, response) => {
           response.status(201).json(url[0]);
         })
         .catch((error) => {
-          response.status(500).json({ error });
+          response.status(409).json({
+            error: 'Url already exists, try again',
+          });
         });
     });
 });
