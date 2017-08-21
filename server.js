@@ -4,7 +4,7 @@ const shortHash = require('short-hash');
 
 const app = express();
 
-const environment = process.env.NODE_ENV || 'development';
+const environment = process.env.NODE_ENV || 'test';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
