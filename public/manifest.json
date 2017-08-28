@@ -1,4 +1,12 @@
 {
   "short_name": "JetFuel",
-  "name": "Jet Fuel"
+  "name": "Jet Fuel",
+  "icons": [
+    {
+      "src": "https://placebear.com/144/144",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "index.html?launcher=true"
 }
