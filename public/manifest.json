@@ -8,5 +8,7 @@
       "sizes": "144x144"
     }
   ],
-  "start_url": "index.html?launcher=true"
+  "start_url": "index.html?launcher=true",
+  "theme_color": "#1e2739",
+  "background_color": "#1e2739"
 }
